@@ -1,24 +1,31 @@
 package br.edu.ifsp.orderflow.domain;
 
-public class ItemPedido {
-    private final Produto produto;
-    private final int qtd;
+import java.math.BigDecimal;
 
-    public ItemPedido(Produto produto, int qtd) {
+public class ItemPedido {
+
+    private final Produto produto;
+    private final int quantidade;
+
+    public ItemPedido(Produto produto, int quantidade) {
         this.produto = produto;
-        this.qtd = qtd;
+        this.quantidade = quantidade;
     }
 
     public Produto getProduto() {
         return produto;
     }
 
-    public int getQtd() {
-        return qtd;
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public BigDecimal calcularSubtotal() {
+        return this.produto.getPreco().multiply(BigDecimal.valueOf(this.quantidade));
     }
 
     @Override
     public String toString() {
-        return this.qtd
+        return this.quantidade + "x " + this.produto.getNome();
     }
 }
