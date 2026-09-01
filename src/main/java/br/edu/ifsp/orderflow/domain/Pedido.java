@@ -58,6 +58,9 @@ public class Pedido {
     public EStatusPedido getStatus() {
         return status;
     }
+    public String getIdCurto(){
+        return this.id.substring(0, 8);
+    }
 
     @Override
     public String toString() {

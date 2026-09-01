@@ -5,8 +5,10 @@ import br.edu.ifsp.orderflow.domain.Cliente;
 import br.edu.ifsp.orderflow.domain.ItemPedido;
 import br.edu.ifsp.orderflow.domain.Pedido;
 import br.edu.ifsp.orderflow.domain.Produto;
+import br.edu.ifsp.orderflow.infra.ConsoleNotificacaoService;
+import br.edu.ifsp.orderflow.infra.FakePagamentoGateway;
 import br.edu.ifsp.orderflow.infra.InMemoryEstoqueService;
-import br.edu.ifsp.orderflow.service.IEstoqueService;
+import br.edu.ifsp.orderflow.service.*;
 
 import java.math.BigDecimal;
 
@@ -15,7 +17,11 @@ public class Main {
     public static void main(String[] args) {
 
         IEstoqueService estoqueService = new InMemoryEstoqueService();
+        IPedidoRepository pedidoRepository = new InMemoryPedidoRepository();
+        NotificationService notificationService = new ConsoleNotificacaoService();
+        IPagamentoGateway pagamentoGateway = new FakePagamentoGateway();
 
+        PedidoService
         Produto mouse = new Produto(
                 "SKU-1",
                 "Mouse sem fio",
@@ -33,6 +39,7 @@ public class Main {
                 "Monitor 27 pol",
                 new BigDecimal("1800.00")
         );
+
         estoqueService.adicionarEstoque(mouse, 10);
         estoqueService.adicionarEstoque(teclado, 6);
         estoqueService.adicionarEstoque(monitor, 2);
@@ -40,15 +47,23 @@ public class Main {
         Cliente ana = new Cliente("Ana", "ana@email.com");
         Cliente bruno = new Cliente("Bruno", "bruno@email.com");
 
-        Pedido pedido1 = new Pedido(ana);
+        Pedido pedido1 = new Pedido(ana)
+                ;
         pedido1.adicionarItem(new ItemPedido(mouse, 2));
         pedido1.adicionarItem(new ItemPedido(teclado, 2));
 
+        Pedido pedido = pedidoService.processar(pedido1);
+        System.out.println(pedido)
+        ;
         boolean reservado = estoqueService.reservar(pedido1);
 
-        if(reservado == false){
-            System.out.println("Nao foi reservado");
+        if (reservado == false) {
+            System.out.println("Não foi reservado.");
         }
+        else {
+            System.out.println("Reservado com sucesso!");
+        }
+
         Pedido pedido2 = new Pedido(bruno);
         pedido2.adicionarItem(new ItemPedido(monitor, 2));
         pedido2.adicionarItem(new ItemPedido(teclado, 5));
@@ -58,5 +73,7 @@ public class Main {
         estoque.adicionarEstoque(mouse, 1);
         estoque.adicionarEstoque(mouse, 1);
         System.out.println(pedido1);
+
+
     }
 }
