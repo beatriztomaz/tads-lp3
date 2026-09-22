@@ -1,8 +1,11 @@
 package br.edu.ifsp.orderflow.infra;
 
-import br.edu.ifsp.orderflow.service.NotificationService;
 
-public class ConsoleNotificacaoService implements NotificationService {
+import br.edu.ifsp.orderflow.domain.Cliente;
+import br.edu.ifsp.orderflow.service.INotificacaoService;
+
+public class ConsoleNotificacaoService implements INotificacaoService {
+
     public void notificar(Cliente cliente, String mensagem) {
         this.sleep(800);
         System.out.println("[NOTIFICACAO] para " + cliente.getEmail() + ": " + mensagem);

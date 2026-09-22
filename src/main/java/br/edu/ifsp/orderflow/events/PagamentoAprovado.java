@@ -1,5 +1,7 @@
 package br.edu.ifsp.orderflow.events;
 
+import java.time.Instant;
+
 /**
  * Evento que ser apublicado quando um pagamento for aprovado.
  * @param pedidoId
