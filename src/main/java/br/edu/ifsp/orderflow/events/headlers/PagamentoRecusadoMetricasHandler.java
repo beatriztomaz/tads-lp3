@@ -7,7 +7,7 @@ public class PagamentoRecusadoMetricasHandler implements IEventHandler<Pagamento
 
     private final Metricas metricas;
 
-    PagamentoRecusadoMetricasHandler(Metricas metricas){
+    public PagamentoRecusadoMetricasHandler(Metricas metricas){
         this.metricas = metricas;
     }
     public void handle(PagamentoRecusado event) {

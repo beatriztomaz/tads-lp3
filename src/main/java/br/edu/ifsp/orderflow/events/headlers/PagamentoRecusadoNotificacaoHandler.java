@@ -33,4 +33,9 @@ public class PagamentoRecusadoNotificacaoHandler implements IEventHandler<Pagame
             );
         }
     }
+
+    @Override
+    public Class<PagamentoRecusado> eventType() {
+        return PagamentoRecusado.class;
+    }
 }
